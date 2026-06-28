@@ -57,6 +57,22 @@ medical-telegram-warehouse/
 ```
 
 ---
+## dbt Transformation Layer
+
+A dbt project has been added under `medical_warehouse/` to model the raw Telegram data into a star schema.
+
+Implemented dbt components:
+
+- `stg_telegram_messages`: cleans raw Telegram message records
+- `dim_channels`: channel-level dimension table
+- `dim_dates`: date dimension for trend analysis
+- `fct_messages`: analytical fact table
+- `schema.yml`: dbt documentation and tests
+- `assert_no_future_messages.sql`: custom data quality test
+
+The intended warehouse flow is:
+
+Raw Telegram JSON → PostgreSQL raw schema → dbt staging → dbt marts/star schema
 
 # Technologies Used
 
