@@ -4,6 +4,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from telethon import TelegramClient
+from config import CHANNELS, MESSAGE_LIMIT
 
 # Load environment variables
 load_dotenv()
@@ -25,28 +26,27 @@ async def main():
     print(f"Connected successfully as: {me.first_name}")
 
     # ONE channel only for now
-    channel = "CheMed123"
+    channel = CHANNELS[0]
 
     print(f"\nReading messages from {channel}...\n")
 
-    # Create an empty list to store messages
     messages = []
 
-    async for message in client.iter_messages(channel, limit=5):
+    async for message in client.iter_messages(channel, limit=MESSAGE_LIMIT):
         messages.append({
             "message_id": message.id,
+            "channel_name": channel,
             "date": str(message.date),
             "text": message.text,
+            "has_media": message.media is not None,
             "views": message.views,
             "forwards": message.forwards
         })
 
-    # Create output folder
     output_dir = Path("data/raw/telegram_messages")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Save messages to JSON
-    output_file = output_dir / "CheMed123.json"
+    output_file = output_dir / f"{channel}.json"
 
     with open(output_file, "w", encoding="utf-8") as file:
         json.dump(messages, file, indent=4, ensure_ascii=False)
