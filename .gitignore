@@ -1,0 +1,29 @@
+# Virtual Environment
+venv/
+
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Logs
+logs/
+*.log
+
+# Data
+data/raw/
+data/processed/
+
+# dbt
+target/
+dbt_packages/
+
+# VS Code
+.vscode/settings.json
+
+# OS
+.DS_Store
+Thumbs.db
