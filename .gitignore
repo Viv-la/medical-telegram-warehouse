@@ -27,3 +27,7 @@ dbt_packages/
 # OS
 .DS_Store
 Thumbs.db
+
+telegram_session.session
+runs/
+yolov8n.pt
